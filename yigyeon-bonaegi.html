@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>모니터링 종료 설문</title>
+    <style>
+      :root {
+        --bg: #f5f5f7;
+        --card: #ffffff;
+        --ink: #1d1d1f;
+        --ink-2: #6e6e73;
+        --ink-3: #86868b;
+        --line: #d2d2d7;
+        --field-bg: #ffffff;
+        --accent: #0071e3;
+        --accent-hover: #0077ed;
+        --accent-ink: #ffffff;
+        --ring: rgba(0, 113, 227, 0.18);
+        --error-bg: #fdf0ee;
+        --error-ink: #c41e0f;
+        --error-line: #f3c6c0;
+        --success: #1d9e4b;
+        --success-bg: rgba(52, 199, 89, 0.14);
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #000000;
+          --card: #1d1d1f;
+          --ink: #f5f5f7;
+          --ink-2: #a1a1a6;
+          --ink-3: #86868b;
+          --line: #424245;
+          --field-bg: #161617;
+          --accent: #2997ff;
+          --accent-hover: #4dabff;
+          --accent-ink: #ffffff;
+          --ring: rgba(41, 151, 255, 0.28);
+          --error-bg: #3a1d1a;
+          --error-ink: #ff9d94;
+          --error-line: #6e3a32;
+          --success: #30d158;
+          --success-bg: rgba(48, 209, 88, 0.16);
+          --shadow: none;
+          color-scheme: dark;
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Apple SD Gothic Neo", "Helvetica Neue", "Malgun Gothic", sans-serif;
+        font-size: 17px;
+        line-height: 1.6;
+        letter-spacing: -0.01em;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      .wrap {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 48px 20px 64px;
+      }
+      @media (min-width: 640px) {
+        .wrap { padding-top: 80px; }
+      }
+      h1 {
+        margin: 0 0 16px;
+        font-size: 34px;
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        word-break: keep-all;
+      }
+      @media (min-width: 640px) {
+        h1 { font-size: 44px; }
+      }
+      .intro {
+        margin: 0 0 36px;
+        color: var(--ink-2);
+        font-size: 17px;
+        line-height: 1.65;
+        word-break: keep-all;
+      }
+      @media (min-width: 640px) {
+        .intro { font-size: 18px; }
+      }
+      .card {
+        background: var(--card);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        padding: 26px 22px 28px;
+      }
+      @media (min-width: 640px) {
+        .card { padding: 34px 34px 36px; }
+      }
+      label.field-label {
+        display: block;
+        font-size: 19px;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        margin-bottom: 8px;
+      }
+      .hint {
+        margin: 0 0 16px;
+        font-size: 14.5px;
+        line-height: 1.6;
+        color: var(--ink-2);
+        word-break: keep-all;
+      }
+      textarea {
+        display: block;
+        width: 100%;
+        min-height: 190px;
+        padding: 15px 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--field-bg);
+        color: var(--ink);
+        font: inherit;
+        font-size: 17px;
+        line-height: 1.6;
+        resize: vertical;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+      textarea::placeholder { color: var(--ink-3); }
+      textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px var(--ring);
+      }
+      .anon {
+        display: flex;
+        gap: 7px;
+        align-items: flex-start;
+        margin: 14px 0 22px;
+        font-size: 14px;
+        color: var(--ink-2);
+      }
+      .anon svg { flex: none; margin-top: 3px; }
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        width: 100%;
+        min-height: 52px;
+        padding: 13px 24px;
+        border: 0;
+        border-radius: 980px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        font: inherit;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.15s ease;
+      }
+      .btn:hover { background: var(--accent-hover); }
+      .btn:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
+      .btn[disabled] { opacity: 0.6; cursor: default; }
+      .btn-secondary {
+        background: transparent;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+      }
+      .btn-secondary:hover { background: var(--ring); }
+      .spinner {
+        width: 19px; height: 19px; flex: none;
+        border: 2.5px solid currentColor;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) {
+        .spinner { animation-duration: 2s; }
+      }
+      .msg {
+        display: none;
+        margin: 0 0 16px;
+        padding: 13px 16px;
+        border-radius: 12px;
+        font-size: 15px;
+        line-height: 1.55;
+      }
+      .msg.show { display: block; }
+      .msg-error {
+        background: var(--error-bg);
+        color: var(--error-ink);
+        border: 1px solid var(--error-line);
+      }
+      .sending-note {
+        margin: 14px 0 0;
+        text-align: center;
+        font-size: 14px;
+        color: var(--ink-3);
+      }
+      /* 완료 화면 */
+      .done { text-align: center; padding: 18px 4px 8px; }
+      .done-icon {
+        width: 68px; height: 68px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: var(--success-bg);
+        color: var(--success);
+        display: flex; align-items: center; justify-content: center;
+      }
+      .done h2 {
+        margin: 0 0 10px;
+        font-size: 25px;
+        line-height: 1.35;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        word-break: keep-all;
+      }
+      .done p {
+        margin: 0 auto 28px;
+        max-width: 42ch;
+        color: var(--ink-2);
+        font-size: 16px;
+        word-break: keep-all;
+      }
+      .done .btn { max-width: 300px; margin: 0 auto; }
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>모니터링 종료 설문</h1>
+      <p class="intro">
+        이번 행정사무감사 모니터링 일정을 마쳤습니다. 이 방에 참여해 주시고 질문과 의견을 보내 주셔서 감사합니다.
+        이용하시면서 불편했던 점이나 기대와 달랐던 점, 도움이 됐던 점을 이 페이지로 알려 주세요.
+        다음 유사한 운영을 준비할 때 개선에 반영하겠습니다.
+      </p>
+
+      <section class="card" aria-label="의견 보내기">
+        <!-- 입력 화면 -->
+        <form id="form" novalidate>
+          <label class="field-label" for="content">의견 남기기</label>
+          <p class="hint" id="hint">
+            알림이 너무 잦았던 때, 답변이 질문과 맞지 않았던 때, 필요한 문서를 찾기 어려웠던 때처럼
+            구체적인 상황을 적어 주시면 좋아요. 도움이 됐거나 다음에도 유지했으면 하는 점도
+            한 가지만 짧게 남겨 주셔도 좋습니다.
+          </p>
+
+          <div class="msg msg-error" id="errorMsg" role="alert"></div>
+
+          <textarea
+            id="content"
+            name="content"
+            rows="7"
+            maxlength="5000"
+            placeholder="여기에 의견을 적어 주세요."
+            aria-describedby="hint anonNote"
+            autocomplete="off"
+          ></textarea>
+
+          <p class="anon" id="anonNote">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            <span>이름이나 연락처는 받지 않습니다. 익명으로 보내집니다.</span>
+          </p>
+
+          <button class="btn" type="submit" id="submitBtn">
+            <span id="submitLabel">의견 보내기</span>
+          </button>
+          <p class="sending-note" id="sendingNote" hidden>보내는 중입니다. 잠시만 기다려 주세요.</p>
+        </form>
+
+        <!-- 완료 화면 -->
+        <div class="done" id="done" hidden>
+          <div class="done-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h2>의견이 전달됐습니다.<br />감사합니다.</h2>
+          <p>보내 주신 의견은 다음 유사한 운영을 준비할 때 개선에 반영하겠습니다.</p>
+          <button class="btn btn-secondary" type="button" id="againBtn">의견 하나 더 남기기</button>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        var ENDPOINT = "https://script.google.com/macros/s/AKfycbyZdP7jS6EgEAzWxazSTnpH4nJBZMTMDuS_YX1TpXwYJ85vA_c_V1nOtZ277Es3QrUUhg/exec";
+        var SUCCESS_DELAY = 3500; // 응답이 느린 엔드포인트라 기다리지 않고 완료 처리
+
+        var form = document.getElementById("form");
+        var textarea = document.getElementById("content");
+        var submitBtn = document.getElementById("submitBtn");
+        var submitLabel = document.getElementById("submitLabel");
+        var sendingNote = document.getElementById("sendingNote");
+        var errorMsg = document.getElementById("errorMsg");
+        var done = document.getElementById("done");
+        var againBtn = document.getElementById("againBtn");
+        var sending = false;
+
+        function showError(text) {
+          errorMsg.textContent = text;
+          errorMsg.classList.add("show");
+        }
+        function hideError() {
+          errorMsg.textContent = "";
+          errorMsg.classList.remove("show");
+        }
+        function setSending(on) {
+          sending = on;
+          submitBtn.disabled = on;
+          textarea.disabled = on;
+          sendingNote.hidden = !on;
+          if (on) {
+            submitLabel.textContent = "보내는 중…";
+            var sp = document.createElement("span");
+            sp.className = "spinner";
+            sp.id = "spinner";
+            sp.setAttribute("aria-hidden", "true");
+            submitBtn.insertBefore(sp, submitLabel);
+          } else {
+            submitLabel.textContent = "의견 보내기";
+            var sp = document.getElementById("spinner");
+            if (sp) sp.remove();
+          }
+        }
+        function showDone() {
+          form.hidden = true;
+          done.hidden = false;
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          againBtn.focus({ preventScroll: true });
+        }
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (sending) return;
+          hideError();
+
+          var content = textarea.value.trim();
+          if (!content) {
+            showError("의견을 적어 주세요. 한 줄만 남겨 주셔도 좋습니다.");
+            textarea.focus();
+            return;
+          }
+
+          setSending(true);
+
+          var failed = false;
+          var finished = false;
+
+          var request;
+          try {
+            request = fetch(ENDPOINT, {
+              method: "POST",
+              mode: "no-cors",
+              keepalive: true,
+              headers: { "Content-Type": "text/plain" },
+              body: JSON.stringify({ content: content })
+            });
+          } catch (err) {
+            setSending(false);
+            showError("보내기에 실패했습니다. 연결 상태를 확인하고 다시 보내 주세요.");
+            return;
+          }
+
+          // 빠르게 실패(reject)한 경우에만 오류를 보여준다.
+          Promise.resolve(request).then(
+            function () {},
+            function () {
+              if (finished) return;
+              failed = true;
+              setSending(false);
+              showError("보내기에 실패했습니다. 잠시 후 다시 보내 주세요. 같은 내용이 이미 전달됐을 수도 있으니, 한 번만 더 시도해 주세요.");
+            }
+          );
+
+          // 응답은 매우 느릴 수 있어 기다리지 않는다.
+          setTimeout(function () {
+            if (failed || finished) return;
+            finished = true;
+            setSending(false);
+            showDone();
+          }, SUCCESS_DELAY);
+        });
+
+        againBtn.addEventListener("click", function () {
+          textarea.value = "";
+          hideError();
+          done.hidden = true;
+          form.hidden = false;
+          textarea.focus();
+        });
+      })();
+    </script>
+  </body>
+</html>
